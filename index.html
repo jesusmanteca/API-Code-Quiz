@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Quiz</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div id="welcomeContainer">
+        <h1>
+            Welcome Message
+        </h1>
+        <button id="startButton">
+            Begin Quiz
+        </button>
+    </div>
+
+
+
+    <div id="quiz">
+        <h2 id="quizQuestion">
+            Welcome to the Quiz!
+        </h2>
+        <div id="timerDiv">
+            <h3>
+                Timer:
+            </h3>
+            <h3 id="timer">
+                ??
+            </h3>
+            <h3>
+                Seconds
+            </h3>
+        </div>
+        <div id="choicesDiv">
+            <button id="answerBtnA">
+                A
+            </button>
+            <button id="answerBtnB">
+                B
+            </button>
+            <button id="answerBtnC">
+                C
+            </button>
+            <button id="answerBtnD">
+                D
+            </button>
+        </div>
+        <!-- this div should only appear once all the questions are answered -->
+        <div id="submit">
+            <button id="submitQuizButton">
+                Submit Quiz
+            </button>
+        </div>
+    </div>
+
+    <div id="resultsDiv">
+        <h2>
+            Done with the quiz, here are your results:
+        </h2>
+        <h3>
+            Correct:
+            <h4 id="correctAmount">
+
+            </h4>
+        </h3>
+    </div>
+
+
+
+
+
+    <!-- link the javascript to the html -->
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

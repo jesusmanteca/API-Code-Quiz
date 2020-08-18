@@ -32,31 +32,33 @@ var timer = 25;
 // quiz section
 var quizContent = [
     {
-       question: "What is javascript?",
-        correctAnswer: [
-            "A programming language."
-        ],
-        possibleAnswers: [
+        question: "What is javascript?",
+        questionChoices: [
             "A cup of coffee.", 
             "A type of play.",
             "A vibe.",
-        ]
+            "A programming language.",
+        ],
+        correctAnswer: [
+            "A programming language.",
+        ],
     },
     {
         question: "What is css?",
-        correctAnswer: [
-            "A programming language."
-        ],
-        possibleAnswers: [
-            "A cup of coffee, duh brah.", 
+        questionChoices: [
+            "A programming language.",
+            "A cup of coffee.", 
             "A type of play.",
             "A vibe.",
-        ]
+            
+        ],
+        correctAnswer: [
+            "A programming language.",
+        ],
     }
 ]
+console.log(quizContent[0].correctAnswer[0])
 
-
-console.log(quizContent[1].possibleAnswers[0])
 
 // **********************************************
 // *********** initializing functions ***********
@@ -72,8 +74,6 @@ var endQuiz = function () {
     // ending the quiz also stops and records timer
     clearInterval(timerId);
 };
-
-
 
 // establishing what a timer does and having it in ready variable form to be called. This will be called in the startQuiz function once the user clicks the button
 var startTimer = function () {
@@ -121,7 +121,7 @@ startButtonEl.addEventListener(
 );
 
 
-    //once all questions are answered, make the #submit div appear
+    
 
 
 

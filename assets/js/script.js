@@ -1,81 +1,96 @@
-// **********************************************
-// **connecting a variable to an object on html**
-// **********************************************
-
-// * connecting to the start button
-var startButtonEl = document.querySelector("#startButton");
-
-// connecting to the quiz container
-var quizDivEl = document.querySelector("#quiz");
-
-// connecting to the welcome container
-var welcomeContainerEl = document.querySelector("#welcomeContainer");
-
-// * connecting to the results screen div
-var resultsDivEl = document.querySelector("#resultsDiv");
-
-// connecting to timer in quiz
-var timerEl = document.querySelector("#timer");
-
-var answerBtnA = document.querySelector("answerBtnA")
-var answerBtnB = document.querySelector("answerBtnB")
-var answerBtnC = document.querySelector("answerBtnC")
-var answerBtnD = document.querySelector("answerBtnD")
-
-// **********************************************
-// ************* initializing values ************
-// **********************************************
+function Quiz(questions) {
+    this.score = 0;
+    this.questions = questions;
+    this.questionIndex = 0;
+}
 
 // giving the timer an initial value, a starting point
 var timer = 25;
 
-// quiz section
-var quizContent = [
-    {
-        question: "What is javascript?",
-        questionChoices: [
-            "A cup of coffee.", 
-            "A type of play.",
-            "A vibe.",
-            "A programming language.",
-        ],
-        correctAnswer: [
-            "A programming language.",
-        ],
-    },
-    {
-        question: "What is css?",
-        questionChoices: [
-            "A programming language.",
-            "A cup of coffee.", 
-            "A type of play.",
-            "A vibe.",
-            
-        ],
-        correctAnswer: [
-            "A programming language.",
-        ],
+
+ 
+Quiz.prototype.getQuestionIndex = function() {
+    return this.questions[this.questionIndex];
+}
+ 
+Quiz.prototype.guess = function(answer) {
+    if(this.getQuestionIndex().isCorrectAnswer(answer)) {
+        this.score++;
     }
-]
-console.log(quizContent[0].correctAnswer[0])
-
-
-// **********************************************
-// *********** initializing functions ***********
-// **********************************************
-
-// the quiz ends: choices div dissappears and the results appear
-var endQuiz = function () {
-
-    // ending the quiz will make the quiz div disappear and make the results div appear
-    quizDivEl.style.display = "none";
-    resultsDivEl.style.display = "initial";
-
-    // ending the quiz also stops and records timer
-    clearInterval(timerId);
+ 
+    this.questionIndex++;
+}
+ 
+Quiz.prototype.isEnded = function() {
+    return this.questionIndex === this.questions.length;
+}
+ 
+ 
+function Question(text, choices, answer) {
+    this.text = text;
+    this.choices = choices;
+    this.answer = answer;
+}
+ 
+Question.prototype.isCorrectAnswer = function(choice) {
+    return this.answer === choice;
+}
+ 
+ 
+function populate() {
+    if(quiz.isEnded()) {
+        showScores();
+    }
+    else {
+        // show question
+        var element = document.getElementById("question");
+        element.innerHTML = quiz.getQuestionIndex().text;
+ 
+        // show options
+        var choices = quiz.getQuestionIndex().choices;
+        for(var i = 0; i < choices.length; i++) {
+            var element = document.getElementById("choice" + i);
+            element.innerHTML = choices[i];
+            guess("btn" + i, choices[i]);
+        }
+ 
+        showProgress();
+    }
 };
-
-// establishing what a timer does and having it in ready variable form to be called. This will be called in the startQuiz function once the user clicks the button
+ 
+function guess(id, guess) {
+    var button = document.getElementById(id);
+    button.onclick = function() {
+        quiz.guess(guess);
+        populate();
+    }
+};
+ 
+ 
+function showProgress() {
+    var currentQuestionNumber = quiz.questionIndex + 1;
+    var element = document.getElementById("progress");
+    element.innerHTML = "Question " + currentQuestionNumber + " of " + quiz.questions.length;
+};
+ 
+function showScores() {
+    var gameOverHTML = "<h1>Results</h1>";
+    var finalScore = (quiz.score + 1)
+    gameOverHTML += "<h2 id='score'> Your score: " + finalScore + " of " + questions.length +"</h2>";
+    var element = document.getElementById("quiz");
+    element.innerHTML = gameOverHTML;
+};
+ 
+// create questions here
+var questions = [
+    new Question("What does Hyper Text Markup Language Stand for?", ["JavaScript", "XHTML","CSS", "HTML"], "HTML"),
+    new Question("Which language is used for styling web pages?", ["HTML", "JQuery", "CSS", "Bootstrap"], "CSS"),
+    new Question("CSS stands for?", ["Cascading Style Sheet", "Computer Series Style","Code Sheet Style", "Clear Style Syntax"], "Cascading Style Sheet"),
+    new Question("How would you call the object's startup method?", ["computer.startUp", "computerStart.up()", "computer.startUp()", "computer['startUp']"], "computer.startup()"),
+];
+ 
+var timerEl = document.querySelector("#timer")
+ // establishing what a timer does and having it in ready variable form to be called. This will be called in the startQuiz function once the user clicks the button
 var startTimer = function () {
     timerId = setInterval(
         // first argument is a function that says, I'm going to do this every... (second argument) ... until instructed otherwise
@@ -90,45 +105,19 @@ var startTimer = function () {
             // stop the timer at zero
             if (timer === 0) {
                 clearInterval(timerId);
-                endQuiz();
+                quiz.isEnded();
+                showScores();
             }
+
         },
         // second argument: how often to run this function above? in this case, once every 1000ms or 1 sec
         1000
     )
 }
 
-// accesss the start button so that the welcome message goes away and the quiz appears and you can begin to take it
-var startQuiz = function () {
-    // changed the property of the display to show the quiz Div
-    quizDivEl.style.display = "initial";
-    // change the property of the welcome display to hide (none)
-    welcomeContainerEl.style.display = "none";
-
-    console.log("The Quiz has begun.");
-    startTimer();
-
-}
-
-// **********************************************
-// ************* initializing Quiz **************
-// **********************************************
-
-//adding an eventListener to the start button so that when it's clicked, it does something, in this case, it runs the function "startQuiz". Don't open or close the () if the function called is in an existing accessible variable. It's implied. 
-startButtonEl.addEventListener(
-    "click",
-    startQuiz
-);
-
-
-    
-
-
-
-// timer begin
-// questions: list of questions in an array
-// question, choices, answer
-// question array with object with question, choices, and answer
-
-
-
+startTimer()
+// create quiz
+var quiz = new Quiz(questions);
+ 
+// display quiz
+populate();

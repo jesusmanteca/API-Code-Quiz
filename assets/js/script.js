@@ -5,7 +5,7 @@ function Quiz(questions) {
 }
 
 // giving the timer an initial value, a starting point
-var timer = 25;
+var timer = 60;
 
 
  
@@ -86,7 +86,13 @@ var questions = [
     new Question("What does Hyper Text Markup Language Stand for?", ["JavaScript", "XHTML","CSS", "HTML"], "HTML"),
     new Question("Which language is used for styling web pages?", ["HTML", "JQuery", "CSS", "Bootstrap"], "CSS"),
     new Question("CSS stands for?", ["Cascading Style Sheet", "Computer Series Style","Code Sheet Style", "Clear Style Syntax"], "Cascading Style Sheet"),
-    new Question("How would you call the object's startup method?", ["computer.startUp", "computerStart.up()", "computer.startUp()", "computer['startUp']"], "computer.startup()"),
+    new Question( "How would you call the object's startup method?",  ["computer.startUp","computerStart.up()", "computer.startUp()", "computer['startUp']"], "computer.startup()"),
+    new Question("What is the HTML tag under which one can write the JavaScript code?", ["javascript", "scripted","script","js"], "computer.startup()"),
+    new Question("What is the correct syntax for referring to an external script called 'bootcamp.js'?", ["script src='bootcamps.js'", "script href='bootcamps.js'", "script ref='bootcamps.js'","script name='bootcamps.js'",], "script src='bootcamps.js'"),
+    new Question("Which built-in method removes the last element from an array and returns that element?", ["last()", "get()", "pop()", "None of these"], "pop()"),
+    new Question ("Which of the following code creates an object?", ["var book = Object()", "var book = new Object()", "var book = new OBJECT()", "var book = new Book()"], "var book = new Object()"), 
+    new Question ("Which of the following function of Number object returns a string value version of the current number?", ["toString()", "toFixed()", "toLocaleString()", "toPrecision()"],),
+    new Question ("Which of the following function of String object returns the characters in a string between two indexes into the string?", ["splice()", "split()", "substr()", "substring()"], "substring()")
 ];
  
 var timerEl = document.querySelector("#timer")
